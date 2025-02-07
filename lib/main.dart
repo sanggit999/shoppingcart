@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingcart/core/configs/theme/app_theme.dart';
+import 'package:shoppingcart/presentation/home/cubit/product_display_cubit.dart';
 import 'package:shoppingcart/presentation/splash/cubit/splash_cubit.dart';
 import 'package:shoppingcart/presentation/splash/splash.dart';
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => SplashCubit()..appStarted()),
+        BlocProvider(create: (_) => ProductDisplayCubit()..loadingProduct())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

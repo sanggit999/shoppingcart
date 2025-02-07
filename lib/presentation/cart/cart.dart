@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoppingcart/core/configs/theme/custom_theme/basic_app_bar.dart';
+import 'package:shoppingcart/common/widgets/appbar/basic_app_bar.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

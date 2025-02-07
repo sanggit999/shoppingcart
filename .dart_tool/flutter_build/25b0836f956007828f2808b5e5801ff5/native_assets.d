@@ -1,1 +1,0 @@
- D:\\HomeworkFlutter\\flutter_bloc_tutorial\\shoppingcart\\.dart_tool\\flutter_build\\25b0836f956007828f2808b5e5801ff5\\native_assets.yaml: 
