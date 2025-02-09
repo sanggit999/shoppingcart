@@ -4,7 +4,7 @@ class ProductDisplayCubit extends Cubit<bool> {
   ProductDisplayCubit() : super(true);
 
   void loadingProduct() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     emit(false);
   }
 }

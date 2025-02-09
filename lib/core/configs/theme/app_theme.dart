@@ -8,7 +8,7 @@ class AppTheme {
   static final light = ThemeData(
     colorScheme: const ColorScheme(
       brightness: Brightness.light,
-      primary: Colors.white,
+      primary: Colors.amber,
       onPrimary: Colors.amber,
       secondary: Colors.white,
       onSecondary: Colors.white,

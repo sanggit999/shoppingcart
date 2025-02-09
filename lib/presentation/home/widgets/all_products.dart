@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingcart/common/helper/product/format_currency.dart';
 import 'package:shoppingcart/common/widgets/product/product_card.dart';
 import 'package:shoppingcart/common/widgets/shimmer/shimmer_loading_gird.dart';
 import 'package:shoppingcart/presentation/home/cubit/product_display_cubit.dart';
@@ -34,46 +35,46 @@ class AllProducts extends StatelessWidget {
   }
 
   Widget _allProducts() {
-    List<Map<String, String>> allProducts = [
+    List<Map<String, dynamic>> allProducts = [
       {
         'image': 'assets/images/product_6.jpg',
         'name': 'Product #6',
-        'price': '160,000 đ'
+        'price': 160000
       },
       {
         'image': 'assets/images/product_7.jpg',
         'name': 'Product #7',
-        'price': '170,000 đ'
+        'price': 170000
       },
       {
         'image': 'assets/images/product_8.jpg',
         'name': 'Product #8',
-        'price': '180,000 đ'
+        'price': 180000
       },
       {
         'image': 'assets/images/product_9.jpg',
         'name': 'Product #9',
-        'price': '190,000 đ'
+        'price': 190000
       },
       {
         'image': 'assets/images/product_9.jpg',
         'name': 'Product #9',
-        'price': '190,000 đ'
+        'price': 200000
       },
       {
         'image': 'assets/images/product_9.jpg',
         'name': 'Product #9',
-        'price': '190,000 đ'
+        'price': 20000000000000
       },
       {
         'image': 'assets/images/product_9.jpg',
         'name': 'Product #9',
-        'price': '190,000 đ'
+        'price': 200000
       },
       {
         'image': 'assets/images/product_9.jpg',
         'name': 'Product #9',
-        'price': '190,000 đ'
+        'price': 200000
       },
     ];
     return GridView.builder(
@@ -87,10 +88,11 @@ class AllProducts extends StatelessWidget {
           childAspectRatio: 0.8),
       itemBuilder: (context, index) {
         final product = allProducts[index];
+        final price = FormatCurrencyHelper.formatCurrency(product['price']);
         return ProductCard(
           image: product['image']!,
           name: product['name']!,
-          price: product['price']!,
+          price: price.toString(),
           isHot: false,
         );
       },

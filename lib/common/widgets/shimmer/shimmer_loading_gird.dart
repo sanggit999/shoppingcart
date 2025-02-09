@@ -16,7 +16,7 @@ class ShimmerLoadingGird extends StatelessWidget {
           mainAxisSpacing: 16,
           childAspectRatio: 0.8),
       itemBuilder: (context, index) {
-        return ProductShimmer();
+        return const ProductShimmer();
       },
       itemCount: 8,
     );

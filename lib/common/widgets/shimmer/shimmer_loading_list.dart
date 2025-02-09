@@ -14,7 +14,7 @@ class ShimmerLoadingList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return ProductShimmer();
+            return const ProductShimmer();
           },
           separatorBuilder: (context, index) => const SizedBox(width: 16),
           itemCount: 6,

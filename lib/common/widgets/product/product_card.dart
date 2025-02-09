@@ -20,7 +20,7 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 5,
@@ -73,11 +73,14 @@ class ProductCard extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text(price,
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.amber.shade600,
-                              fontWeight: FontWeight.w500)),
+                      Text(
+                        price,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.amber.shade600,
+                            fontWeight: FontWeight.w500),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),

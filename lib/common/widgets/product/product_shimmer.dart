@@ -39,7 +39,7 @@ class ProductShimmer extends StatelessWidget {
                               color: Colors.grey[300]!,
                               borderRadius: BorderRadius.circular(12)),
                         ),
-                        SizedBox(height: 5),
+                        const SizedBox(height: 5),
                         Container(
                           height: 20,
                           decoration: BoxDecoration(

@@ -7,8 +7,7 @@ class ElevatedButtonThemeDataCustom {
     style: ElevatedButton.styleFrom(
         backgroundColor: Colors.amber.shade800,
         elevation: 0,
-        textStyle: const TextStyle(
-            fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
+        textStyle: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6))),
   );
 }
