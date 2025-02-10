@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shoppingcart/common/helper/product/format_currency.dart';
+import 'package:shoppingcart/common/cubit/product/product_quantity_cubit.dart';
 import 'package:shoppingcart/common/widgets/product/product_card.dart';
 import 'package:shoppingcart/common/widgets/shimmer/shimmer_loading_gird.dart';
+import 'package:shoppingcart/data/models/product.dart';
 import 'package:shoppingcart/presentation/home/cubit/product_display_cubit.dart';
 
 class AllProducts extends StatelessWidget {
@@ -35,48 +36,6 @@ class AllProducts extends StatelessWidget {
   }
 
   Widget _allProducts() {
-    List<Map<String, dynamic>> allProducts = [
-      {
-        'image': 'assets/images/product_6.jpg',
-        'name': 'Product #6',
-        'price': 160000
-      },
-      {
-        'image': 'assets/images/product_7.jpg',
-        'name': 'Product #7',
-        'price': 170000
-      },
-      {
-        'image': 'assets/images/product_8.jpg',
-        'name': 'Product #8',
-        'price': 180000
-      },
-      {
-        'image': 'assets/images/product_9.jpg',
-        'name': 'Product #9',
-        'price': 190000
-      },
-      {
-        'image': 'assets/images/product_9.jpg',
-        'name': 'Product #9',
-        'price': 200000
-      },
-      {
-        'image': 'assets/images/product_9.jpg',
-        'name': 'Product #9',
-        'price': 20000000000000
-      },
-      {
-        'image': 'assets/images/product_9.jpg',
-        'name': 'Product #9',
-        'price': 200000
-      },
-      {
-        'image': 'assets/images/product_9.jpg',
-        'name': 'Product #9',
-        'price': 200000
-      },
-    ];
     return GridView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.all(6),
@@ -87,16 +46,23 @@ class AllProducts extends StatelessWidget {
           mainAxisSpacing: 16,
           childAspectRatio: 0.8),
       itemBuilder: (context, index) {
-        final product = allProducts[index];
-        final price = FormatCurrencyHelper.formatCurrency(product['price']);
-        return ProductCard(
-          image: product['image']!,
-          name: product['name']!,
-          price: price.toString(),
-          isHot: false,
+        final product = products[index];
+        return BlocBuilder<ProductQuantityCubit, int>(
+          builder: (context, state) {
+            return BlocProvider.value(
+              value: BlocProvider.of<ProductQuantityCubit>(context),
+              child: ProductCard(
+                productId: product.productId,
+                image: product.imageUrl,
+                name: product.name,
+                price: product.price,
+                isHot: false,
+              ),
+            );
+          },
         );
       },
-      itemCount: allProducts.length,
+      itemCount: products.length,
     );
   }
 }

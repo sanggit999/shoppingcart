@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shoppingcart/common/cubit/product/product_quantity_cubit.dart';
+import 'package:shoppingcart/common/helper/bottomsheet/app_bottomsheet.dart';
+import 'package:shoppingcart/common/helper/product/format_currency.dart';
+import 'package:shoppingcart/common/widgets/product/product_quantity.dart';
+
+import 'package:shoppingcart/presentation/home/cubit/add_to_cart_cubit.dart';
 
 class ProductCard extends StatelessWidget {
   final bool isHot;
+  final int productId;
   final String image;
   final String name;
-  final String price;
+  final double price;
   const ProductCard({
     super.key,
     this.isHot = true,
     required this.image,
     required this.name,
     required this.price,
+    required this.productId,
   });
 
   @override
   Widget build(BuildContext context) {
+    final priceToString = FormatCurrencyHelper.formatCurrency(price.toInt());
+
     return Container(
       width: 150,
       decoration: BoxDecoration(
@@ -74,7 +85,7 @@ class ProductCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        price,
+                        priceToString,
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.amber.shade600,
@@ -87,7 +98,35 @@ class ProductCard extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AppBottomsheet.display(
+                          context,
+                          Container(
+                            height: MediaQuery.of(context).size.height / 4,
+                            padding: const EdgeInsets.all(16),
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(24),
+                                    topLeft: Radius.circular(24))),
+                            child: BlocProvider.value(
+                              value: BlocProvider.of<ProductQuantityCubit>(
+                                  context),
+                              child: ProductQuantity(
+                                productId: productId,
+                                imageUrl: image,
+                                name: name,
+                                price: price,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ),
+                        );
+
+                        context.read<ProductQuantityCubit>().initial();
+                      },
                       icon: const Icon(
                         Icons.shopping_cart_checkout_outlined,
                         color: Colors.amber,
