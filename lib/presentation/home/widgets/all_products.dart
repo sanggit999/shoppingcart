@@ -47,19 +47,12 @@ class AllProducts extends StatelessWidget {
           childAspectRatio: 0.8),
       itemBuilder: (context, index) {
         final product = products[index];
-        return BlocBuilder<ProductQuantityCubit, int>(
-          builder: (context, state) {
-            return BlocProvider.value(
-              value: BlocProvider.of<ProductQuantityCubit>(context),
-              child: ProductCard(
-                productId: product.productId,
-                image: product.imageUrl,
-                name: product.name,
-                price: product.price,
-                isHot: false,
-              ),
-            );
-          },
+        return ProductCard(
+          productId: product.productId,
+          image: product.imageUrl,
+          name: product.name,
+          price: product.price,
+          isHot: false,
         );
       },
       itemCount: products.length,

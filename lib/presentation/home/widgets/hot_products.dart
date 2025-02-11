@@ -44,18 +44,11 @@ class HotProducts extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) {
             final product = products[index];
-            return BlocBuilder<ProductQuantityCubit, int>(
-              builder: (context, state) {
-                return BlocProvider.value(
-                  value: BlocProvider.of<ProductQuantityCubit>(context),
-                  child: ProductCard(
-                    productId: product.productId,
-                    image: product.imageUrl,
-                    name: product.name,
-                    price: product.price,
-                  ),
-                );
-              },
+            return ProductCard(
+              productId: product.productId,
+              image: product.imageUrl,
+              name: product.name,
+              price: product.price,
             );
           },
           separatorBuilder: (context, index) => const SizedBox(width: 16),

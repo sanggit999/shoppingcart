@@ -58,14 +58,7 @@ class AddToCartCubit extends Cubit<List<CartItem>> {
         0, (total, item) => total + item.price.toInt() * item.quantity);
   }
 
-  void newQuantity(int productId, int quantity) {
-    final updatedCart = state.map((item) {
-      if (item.productId == productId) {
-        return item.copyWith(quantity: quantity);
-      }
-      return item;
-    }).toList();
-
-    emit(updatedCart);
+  void clearCart() {
+    emit([]);
   }
 }

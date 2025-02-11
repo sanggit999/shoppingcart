@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shoppingcart/common/helper/product/format_currency.dart';
 import 'package:shoppingcart/common/widgets/appbar/basic_app_bar.dart';
 
-import 'package:shoppingcart/common/widgets/product/selected_quantity.dart';
-
 import 'package:shoppingcart/data/cart/models/cart.dart';
 
 import 'package:shoppingcart/presentation/home/cubit/add_to_cart_cubit.dart';
+import 'package:shoppingcart/presentation/home/home.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -16,7 +15,112 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AddToCartCubit, List<CartItem>>(
       builder: (context, state) {
+        final totalPrice = FormatCurrencyHelper.formatCurrency(
+            context.read<AddToCartCubit>().totalPrice);
         return Scaffold(
+            bottomNavigationBar: state.isEmpty
+                ? const SizedBox()
+                : Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Total price',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              totalPrice.toString(),
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.orangeAccent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(16)),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Order successfully!',
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          SizedBox(
+                                            width: double.infinity,
+                                            height: 50,
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    Colors.orangeAccent,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                context
+                                                    .read<AddToCartCubit>()
+                                                    .clearCart();
+
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          const HomeScreen()),
+                                                  (route) => false,
+                                                );
+                                              },
+                                              child: const Text(
+                                                'Back to Home',
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: const Text(
+                              'Order',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
             backgroundColor: Colors.white,
             appBar: BasicAppBar(
               hideBack: false,
@@ -123,38 +227,20 @@ class CartScreen extends StatelessWidget {
                                                         Icons.remove)),
                                               ),
                                             ),
-                                            Material(
-                                                color: Colors.transparent,
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (_) {
-                                                        return SelectedQuantity(
-                                                          name: product.name,
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  splashColor: Colors.amber,
-                                                  child: SizedBox(
-                                                    width: 60,
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        product.quantity
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.black),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )),
+                                            SizedBox(
+                                              width: 60,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  product.quantity.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black),
+                                                ),
+                                              ),
+                                            ),
                                             Material(
                                               color: Colors.transparent,
                                               child: InkWell(

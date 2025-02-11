@@ -5,8 +5,6 @@ import 'package:shoppingcart/common/helper/bottomsheet/app_bottomsheet.dart';
 import 'package:shoppingcart/common/helper/product/format_currency.dart';
 import 'package:shoppingcart/common/widgets/product/product_quantity.dart';
 
-import 'package:shoppingcart/presentation/home/cubit/add_to_cart_cubit.dart';
-
 class ProductCard extends StatelessWidget {
   final bool isHot;
   final int productId;
@@ -109,18 +107,14 @@ class ProductCard extends StatelessWidget {
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(24),
                                     topLeft: Radius.circular(24))),
-                            child: BlocProvider.value(
-                              value: BlocProvider.of<ProductQuantityCubit>(
-                                  context),
-                              child: ProductQuantity(
-                                productId: productId,
-                                imageUrl: image,
-                                name: name,
-                                price: price,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
+                            child: ProductQuantity(
+                              productId: productId,
+                              imageUrl: image,
+                              name: name,
+                              price: price,
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
                             ),
                           ),
                         );

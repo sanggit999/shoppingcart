@@ -16,6 +16,8 @@ class ProductQuantity extends StatelessWidget {
   final bool isShowBox;
   final Widget? widget;
   final Function()? onTap;
+  final Function()? onTap1;
+  final Function()? onTap2;
   const ProductQuantity(
       {Key? key,
       this.isButton = true,
@@ -25,7 +27,9 @@ class ProductQuantity extends StatelessWidget {
       required this.imageUrl,
       required this.name,
       required this.price,
-      this.widget})
+      this.widget,
+      this.onTap1,
+      this.onTap2})
       : super(key: key);
 
   @override
@@ -120,28 +124,24 @@ class ProductQuantity extends StatelessWidget {
                             child: const Icon(Icons.remove)),
                       ),
                     ),
-                    BlocBuilder<ProductQuantityCubit, int>(
-                      builder: (context, state) {
-                        return Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (_) {
-                                    return BlocProvider.value(
-                                      value:
-                                          BlocProvider.of<ProductQuantityCubit>(
-                                              context),
-                                      child: SelectedQuantity(
-                                        name: name,
-                                      ),
-                                    );
-                                  },
+                    Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return SelectedQuantity(
+                                  name: name,
+                                  isCubit: true,
                                 );
                               },
-                              splashColor: Colors.amber,
-                              child: SizedBox(
+                            );
+                          },
+                          splashColor: Colors.amber,
+                          child: BlocBuilder<ProductQuantityCubit, int>(
+                            builder: (context, state) {
+                              return SizedBox(
                                 width: 60,
                                 child: Align(
                                   alignment: Alignment.center,
@@ -153,10 +153,10 @@ class ProductQuantity extends StatelessWidget {
                                         color: Colors.black),
                                   ),
                                 ),
-                              ),
-                            ));
-                      },
-                    ),
+                              );
+                            },
+                          ),
+                        )),
                     Material(
                       color: Colors.transparent,
                       child: InkWell(
